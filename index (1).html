@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>STEM Scholar Society</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green-dark:#1B3A2F;
+    --tan:#E8DCC4;
+    --copper:#C8703D;
+    --cream:#FAF7F0;
+    --ink:#1A1A1A;
+    --green-mid:#2E5443;
+    --line:rgba(26,26,26,0.14);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+
+  .display{
+    font-family:'Archivo Black', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+  }
+
+  .mono{
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  a{color:inherit;text-decoration:none;}
+
+  img{max-width:100%;display:block;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(250,247,240,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 28px;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .nav-logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Archivo Black', sans-serif;
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+  }
+  .nav-mark{
+    width:30px;height:30px;
+    background:var(--green-dark);
+    border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--tan);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:700;
+    flex-shrink:0;
+  }
+  .nav-links{
+    display:flex;
+    gap:32px;
+    font-size:14px;
+    font-weight:500;
+  }
+  .nav-links a{
+    opacity:0.75;
+    transition:opacity 0.2s;
+    position:relative;
+  }
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--copper);
+    color:var(--cream);
+    padding:10px 20px;
+    border-radius:999px;
+    font-size:13px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{background:#b3622f;}
+  .nav-toggle{display:none;}
+
+  @media (max-width:780px){
+    .nav-links{display:none;}
+    .nav-toggle{display:block;font-size:13px;font-weight:600;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:90px 0 70px;
+    background:var(--cream);
+    overflow:hidden;
+  }
+  .hero-grid{
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.5;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 10%, transparent 70%);
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    max-width:880px;
+    margin:0 auto;
+  }
+  .eyebrow-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--green-dark);
+    color:var(--tan);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.06em;
+    padding:7px 14px;
+    border-radius:999px;
+    margin-bottom:28px;
+  }
+  .eyebrow-tag .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:#7FD8A0;
+  }
+  .hero h1{
+    font-size:clamp(42px, 7.2vw, 88px);
+    line-height:0.98;
+    color:var(--green-dark);
+  }
+  .hero h1 .accent{color:var(--copper);}
+  .hero-sub{
+    margin-top:26px;
+    font-size:clamp(16px,2vw,19px);
+    color:rgba(26,26,26,0.72);
+    max-width:600px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .hero-ctas{
+    margin-top:38px;
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .btn-primary{
+    background:var(--green-dark);
+    color:var(--cream);
+    padding:15px 30px;
+    border-radius:10px;
+    font-weight:600;
+    font-size:15px;
+    display:inline-block;
+    transition:transform 0.15s, background 0.2s;
+  }
+  .btn-primary:hover{background:var(--green-mid);transform:translateY(-2px);}
+  .btn-secondary{
+    border:1.5px solid var(--ink);
+    color:var(--ink);
+    padding:15px 30px;
+    border-radius:10px;
+    font-weight:600;
+    font-size:15px;
+    display:inline-block;
+    transition:transform 0.15s, background 0.2s;
+  }
+  .btn-secondary:hover{background:var(--ink);color:var(--cream);transform:translateY(-2px);}
+
+  /* ---------- KIT TAG STAT STRIP (signature element) ---------- */
+  .tag-strip{
+    background:var(--green-dark);
+    padding:64px 0 70px;
+    position:relative;
+  }
+  .tag-strip-head{
+    text-align:center;
+    color:var(--tan);
+    margin-bottom:40px;
+  }
+  .tag-strip-head .mono{
+    font-size:12px;
+    letter-spacing:0.1em;
+    color:#7FD8A0;
+    display:block;
+    margin-bottom:10px;
+  }
+  .tag-strip-head h2{
+    font-size:clamp(26px,3.6vw,38px);
+    color:var(--cream);
+  }
+  .tag-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:18px;
+  }
+  @media (max-width:900px){.tag-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.tag-grid{grid-template-columns:1fr;}}
+
+  .kit-tag{
+    background:var(--tan);
+    border-radius:4px;
+    padding:22px 22px 20px;
+    position:relative;
+    border:1.5px dashed rgba(26,26,26,0.25);
+  }
+  .kit-tag::before{
+    content:'';
+    position:absolute;
+    top:-7px;
+    left:24px;
+    width:14px;height:14px;
+    background:var(--green-dark);
+    border-radius:50%;
+    border:3px solid var(--tan);
+  }
+  .kit-tag .tag-id{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.05em;
+    color:var(--copper);
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .kit-tag .tag-value{
+    font-family:'Archivo Black', sans-serif;
+    font-size:clamp(30px,4vw,40px);
+    color:var(--green-dark);
+    line-height:1;
+  }
+  .kit-tag .tag-label{
+    font-size:13.5px;
+    color:rgba(26,26,26,0.7);
+    margin-top:8px;
+    font-weight:500;
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:90px 0;}
+  .section-head{
+    max-width:640px;
+    margin-bottom:54px;
+  }
+  .section-head .mono{
+    font-size:12px;
+    letter-spacing:0.1em;
+    color:var(--copper);
+    text-transform:uppercase;
+    display:block;
+    margin-bottom:14px;
+  }
+  .section-head h2{
+    font-size:clamp(28px,4vw,44px);
+    color:var(--green-dark);
+    line-height:1.05;
+  }
+  .section-head p{
+    margin-top:18px;
+    font-size:16px;
+    color:rgba(26,26,26,0.68);
+  }
+
+  /* ---------- IMPACT REACH (community impact tier) ---------- */
+  .reach-band{background:var(--tan);}
+  .reach-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--ink);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  @media (max-width:880px){.reach-grid{grid-template-columns:repeat(2,1fr);}}
+  .reach-cell{
+    background:var(--cream);
+    padding:34px 26px;
+  }
+  .reach-cell .num{
+    font-family:'Archivo Black', sans-serif;
+    font-size:clamp(32px,4.2vw,46px);
+    color:var(--green-dark);
+  }
+  .reach-cell .label{
+    margin-top:8px;
+    font-size:14px;
+    font-weight:600;
+    color:rgba(26,26,26,0.75);
+  }
+  .reach-cell .note{
+    margin-top:6px;
+    font-size:12.5px;
+    color:rgba(26,26,26,0.5);
+  }
+
+  /* ---------- CHAPTER MAP LIST ---------- */
+  .chapter-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:14px;
+  }
+  .chapter-card{
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:22px 22px 20px;
+    background:var(--cream);
+    transition:border-color 0.2s, transform 0.2s;
+  }
+  .chapter-card:hover{border-color:var(--copper);transform:translateY(-3px);}
+  .chapter-card .chapter-mono{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    color:var(--copper);
+    letter-spacing:0.06em;
+  }
+  .chapter-card h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:19px;
+    margin-top:8px;
+    color:var(--green-dark);
+  }
+  .chapter-card .country{
+    font-size:13px;
+    color:rgba(26,26,26,0.55);
+    margin-top:4px;
+  }
+
+  /* ---------- CHALLENGES ---------- */
+  .challenge-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+    gap:18px;
+  }
+  .challenge-card{
+    background:var(--green-dark);
+    color:var(--cream);
+    border-radius:14px;
+    padding:28px 26px;
+    position:relative;
+    overflow:hidden;
+  }
+  .challenge-card .emoji{font-size:26px;}
+  .challenge-card h3{
+    font-size:18px;
+    font-weight:700;
+    margin-top:14px;
+    line-height:1.25;
+  }
+  .challenge-card .theme{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    color:#9FE0B8;
+    margin-top:8px;
+    letter-spacing:0.02em;
+  }
+  .challenge-card p{
+    font-size:13.5px;
+    color:rgba(250,247,240,0.78);
+    margin-top:12px;
+  }
+
+  /* ---------- LEADERSHIP ---------- */
+  .lead-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  @media (max-width:780px){.lead-grid{grid-template-columns:1fr;}}
+  .lead-card{
+    border:1.5px solid var(--line);
+    border-radius:14px;
+    padding:30px 26px;
+    background:var(--cream);
+  }
+  .lead-card .role-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    background:var(--copper);
+    color:var(--cream);
+    display:inline-block;
+    padding:5px 11px;
+    border-radius:999px;
+  }
+  .lead-card h3{
+    font-size:20px;
+    font-weight:700;
+    margin-top:16px;
+    color:var(--green-dark);
+  }
+  .lead-card .school{
+    font-size:13.5px;
+    color:rgba(26,26,26,0.6);
+    margin-top:5px;
+  }
+  .lead-card .class{
+    font-size:12.5px;
+    color:rgba(26,26,26,0.45);
+    margin-top:10px;
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  /* ---------- PROGRAMS LIST ---------- */
+  .program-row{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:28px;
+    padding:30px 0;
+    border-top:1px solid var(--line);
+  }
+  .program-row:last-child{border-bottom:1px solid var(--line);}
+  @media (max-width:640px){.program-row{grid-template-columns:1fr;gap:10px;}}
+  .program-row .pnum{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--copper);
+    font-size:13px;
+    font-weight:700;
+  }
+  .program-row h3{
+    font-size:21px;
+    color:var(--green-dark);
+    font-weight:700;
+  }
+  .program-row p{
+    margin-top:8px;
+    font-size:15px;
+    color:rgba(26,26,26,0.68);
+    max-width:620px;
+  }
+
+  /* ---------- GOALS (clearly labeled future targets) ---------- */
+  .goals-band{
+    background:var(--ink);
+    color:var(--cream);
+  }
+  .goals-band .section-head h2{color:var(--cream);}
+  .goals-band .section-head .mono{color:#9FE0B8;}
+  .goals-band .section-head p{color:rgba(250,247,240,0.65);}
+  .goal-list{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+  }
+  @media (max-width:780px){.goal-list{grid-template-columns:1fr;}}
+  .goal-item{
+    border:1.5px solid rgba(250,247,240,0.18);
+    border-radius:12px;
+    padding:24px 22px;
+  }
+  .goal-item .arrow{color:var(--copper);font-family:'JetBrains Mono', monospace;font-size:13px;}
+  .goal-item .target{
+    font-family:'Archivo Black', sans-serif;
+    font-size:30px;
+    margin-top:10px;
+  }
+  .goal-item .what{
+    font-size:13.5px;
+    color:rgba(250,247,240,0.6);
+    margin-top:6px;
+  }
+
+  /* ---------- CTA / JOIN ---------- */
+  .join-band{
+    background:linear-gradient(135deg, var(--green-dark), var(--green-mid));
+    border-radius:24px;
+    padding:64px 48px;
+    text-align:center;
+    margin:0 28px 90px;
+    color:var(--cream);
+    max-width:1124px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .join-band h2{
+    font-size:clamp(28px,4.4vw,46px);
+  }
+  .join-band p{
+    margin-top:16px;
+    font-size:16px;
+    color:rgba(250,247,240,0.78);
+    max-width:520px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .join-band .hero-ctas{margin-top:32px;}
+  .join-band .btn-secondary{border-color:var(--cream);color:var(--cream);}
+  .join-band .btn-secondary:hover{background:var(--cream);color:var(--ink);}
+  .join-band .btn-primary{background:var(--copper);}
+  .join-band .btn-primary:hover{background:#b3622f;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:48px 0 36px;
+  }
+  .footer-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:30px;
+  }
+  .footer-links{
+    display:flex;
+    gap:26px;
+    font-size:14px;
+    flex-wrap:wrap;
+  }
+  .footer-links a{opacity:0.7;}
+  .footer-links a:hover{opacity:1;}
+  .footer-bottom{
+    margin-top:34px;
+    font-size:12.5px;
+    color:rgba(26,26,26,0.5);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  /* ---------- REVEAL ANIMATION ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+
+  :focus-visible{
+    outline:3px solid var(--copper);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="nav-mark">S³</div>
+      STEM Scholar Society
+    </div>
+    <div class="nav-links">
+      <a href="#impact">Impact</a>
+      <a href="#chapters">Chapters</a>
+      <a href="#programs">Programs</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#goals">What's Next</a>
+    </div>
+    <a class="nav-cta" href="https://forms.gle/bzgha56G6Zr7SrkB9" target="_blank" rel="noopener">Join a Chapter</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow-tag"><span class="dot"></span>YOUTH-LED · INTERNATIONAL · NONPROFIT</div>
+    <h1 class="display">Putting STEM kits<br>in <span class="accent">every</span> kid's hands</h1>
+    <p class="hero-sub">We build hands-on STEM kits and ship them to libraries, orphanages, foster centers, and autism support centers — because curiosity shouldn't depend on your zip code.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="https://forms.gle/bzgha56G6Zr7SrkB9" target="_blank" rel="noopener">Join the Society</a>
+      <a class="btn-secondary" href="#impact">See our impact ↓</a>
+    </div>
+  </div>
+</section>
+
+<section class="tag-strip">
+  <div class="wrap">
+    <div class="tag-strip-head">
+      <span class="mono">// KIT MANIFEST</span>
+      <h2 class="display">Every kit, tracked.</h2>
+    </div>
+    <div class="tag-grid">
+      <div class="kit-tag reveal">
+        <div class="tag-id">KIT-001</div>
+        <div class="tag-value">1,515+</div>
+        <div class="tag-label">STEM kits distributed</div>
+      </div>
+      <div class="kit-tag reveal">
+        <div class="tag-id">KIT-002</div>
+        <div class="tag-value">1,672+</div>
+        <div class="tag-label">Youth reached directly</div>
+      </div>
+      <div class="kit-tag reveal">
+        <div class="tag-id">KIT-003</div>
+        <div class="tag-value">7</div>
+        <div class="tag-label">Active chapters worldwide</div>
+      </div>
+      <div class="kit-tag reveal">
+        <div class="tag-id">KIT-004</div>
+        <div class="tag-value">6</div>
+        <div class="tag-label">States &amp; countries spanned</div>
+      </div>
+      <div class="kit-tag reveal">
+        <div class="tag-id">KIT-005</div>
+        <div class="tag-value">13</div>
+        <div class="tag-label">Laptops donated</div>
+      </div>
+      <div class="kit-tag reveal">
+        <div class="tag-id">KIT-006</div>
+        <div class="tag-value">$23,400</div>
+        <div class="tag-label">In kits, tech &amp; supplies donated</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reach-band" id="impact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="mono">Community Reach</span>
+      <h2>The places that don't usually get a STEM budget.</h2>
+      <p>Few STEM nonprofits track autism centers and orphanages as a core metric. We do, because that's exactly where access is missing most.</p>
+    </div>
+    <div class="reach-grid reveal">
+      <div class="reach-cell">
+        <div class="num">102+</div>
+        <div class="label">Libraries served</div>
+      </div>
+      <div class="reach-cell">
+        <div class="num">108+</div>
+        <div class="label">Schools partnered</div>
+      </div>
+      <div class="reach-cell">
+        <div class="num">83+</div>
+        <div class="label">Autism centers served</div>
+        <div class="note">A metric most STEM nonprofits don't track at all.</div>
+      </div>
+      <div class="reach-cell">
+        <div class="num">61+</div>
+        <div class="label">Orphanages &amp; foster centers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="chapters">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="mono">Where We Operate</span>
+      <h2>7 chapters. 6 states &amp; countries. One mission.</h2>
+      <p>Each chapter is run by its own student leadership team, adapted to the needs of its local community.</p>
+    </div>
+    <div class="chapter-list reveal">
+      <div class="chapter-card">
+        <div class="chapter-mono">CHAPTER · HQ</div>
+        <h3>Palo Alto</h3>
+        <div class="country">California, USA</div>
+      </div>
+      <div class="chapter-card">
+        <div class="chapter-mono">CHAPTER · 02</div>
+        <h3>Fremont</h3>
+        <div class="country">California, USA</div>
+      </div>
+      <div class="chapter-card">
+        <div class="chapter-mono">CHAPTER · 03</div>
+        <h3>New Jersey</h3>
+        <div class="country">New Jersey, USA</div>
+      </div>
+      <div class="chapter-card">
+        <div class="chapter-mono">CHAPTER · 04</div>
+        <h3>Seattle</h3>
+        <div class="country">Washington, USA</div>
+      </div>
+      <div class="chapter-card">
+        <div class="chapter-mono">CHAPTER · 05</div>
+        <h3>Texas</h3>
+        <div class="country">Texas, USA</div>
+      </div>
+      <div class="chapter-card">
+        <div class="chapter-mono">CHAPTER · 06</div>
+        <h3>India</h3>
+        <div class="country">India</div>
+      </div>
+      <div class="chapter-card">
+        <div class="chapter-mono">CHAPTER · 07</div>
+        <h3>Sweden</h3>
+        <div class="country">Sweden</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="programs" style="background:var(--tan);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="mono">What We Run</span>
+      <h2>From kit to classroom to competition.</h2>
+    </div>
+    <div class="reveal">
+      <div class="program-row">
+        <div class="pnum">KITS</div>
+        <div>
+          <h3>STEM Kits with Design Challenges</h3>
+          <p>Each kit centers on one STEM pathway and includes a QR code linking to weekly, monthly, and yearly challenges — so we can measure real engagement, not just boxes shipped.</p>
+        </div>
+      </div>
+      <div class="program-row">
+        <div class="pnum">COMP</div>
+        <div>
+          <h3>Online Competitions</h3>
+          <p>91 workshops hosted and 267 competition participants so far, across challenges from popsicle-stick bridges to circuit-building speed rounds.</p>
+        </div>
+      </div>
+      <div class="program-row">
+        <div class="pnum">TECH</div>
+        <div>
+          <h3>Computer &amp; Tech Donations</h3>
+          <p>13 laptops donated to date, helping bridge the digital divide for students who need a device to keep learning.</p>
+        </div>
+      </div>
+      <div class="program-row">
+        <div class="pnum">MENT</div>
+        <div>
+          <h3>Workshops &amp; Mentorship</h3>
+          <p>Student-led sessions covering coding in Python, circuits, and robotics basics — built to make complex ideas approachable.</p>
+        </div>
+      </div>
+      <div class="program-row">
+        <div class="pnum">FAIR</div>
+        <div>
+          <h3>Virtual Science Fairs</h3>
+          <p>A space for participants to showcase projects and get real feedback from mentors and judges.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="mono">Challenge Library</span>
+      <h2>7 challenges. Every kid picks their lane.</h2>
+      <p>Each challenge ties to a real STEM pathway — students choose the one that fits their kit.</p>
+    </div>
+    <div class="challenge-grid reveal">
+      <div class="challenge-card">
+        <div class="emoji">🏗️</div>
+        <h3>Popsicle Stick Bridge Challenge</h3>
+        <div class="theme">CIVIL / STRUCTURAL ENGINEERING</div>
+        <p>Fixed materials, fixed span, judged on max load held before breaking and strength-to-weight efficiency.</p>
+      </div>
+      <div class="challenge-card">
+        <div class="emoji">📦</div>
+        <h3>Paper Airplane Distance &amp; Accuracy</h3>
+        <div class="theme">AERODYNAMICS / PHYSICS</div>
+        <p>One sheet of paper, three throws, scored on distance and landing accuracy.</p>
+      </div>
+      <div class="challenge-card">
+        <div class="emoji">🧠</div>
+        <h3>STEM Quiz Bowl</h3>
+        <div class="theme">GENERAL STEM KNOWLEDGE</div>
+        <p>Biology, physics, engineering, and math logic — individual or team-based, in person or online.</p>
+      </div>
+      <div class="challenge-card">
+        <div class="emoji">🍡</div>
+        <h3>Marshmallow Tower Challenge</h3>
+        <div class="theme">STRUCTURAL DESIGN / TEAMWORK</div>
+        <p>Tallest free-standing tower in 20–30 minutes, judged on height, stability, and design creativity.</p>
+      </div>
+      <div class="challenge-card">
+        <div class="emoji">⚡</div>
+        <h3>Circuit Building Speed Challenge</h3>
+        <div class="theme">ELECTRICAL ENGINEERING</div>
+        <p>Build a working LED circuit with limited components — fastest correct build wins.</p>
+      </div>
+      <div class="challenge-card">
+        <div class="emoji">🎨</div>
+        <h3>STEM Innovation Pitch Contest</h3>
+        <div class="theme">ENTREPRENEURSHIP / DESIGN</div>
+        <p>Pitch a STEM-based solution — judged on creativity, feasibility, and impact.</p>
+      </div>
+      <div class="challenge-card">
+        <div class="emoji">🚀</div>
+        <h3>Balloon Rocket Race</h3>
+        <div class="theme">NEWTON'S LAWS / PROPULSION</div>
+        <p>One balloon, one straight track, scored on fastest time or farthest distance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="leadership" style="background:var(--tan);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="mono">HQ Leadership</span>
+      <h2>Run by students. Built for students.</h2>
+      <p>Every one of our 7 chapters has its own founding leadership team. Here's HQ.</p>
+    </div>
+    <div class="lead-grid reveal">
+      <div class="lead-card">
+        <div class="role-tag">President</div>
+        <h3>Anjali Palsaniya</h3>
+        <div class="school">Mountain House High School</div>
+        <div class="class">CLASS OF 2027 · INCOMING SENIOR</div>
+      </div>
+      <div class="lead-card">
+        <div class="role-tag">Vice President</div>
+        <h3>Manya Vairaashtak</h3>
+        <div class="school">Dougherty Valley High School</div>
+        <div class="class">CLASS OF 2027 · INCOMING SENIOR</div>
+      </div>
+      <div class="lead-card">
+        <div class="role-tag">Secretary</div>
+        <h3>Isabelle Alejandre</h3>
+        <div class="school">La Mirada High School</div>
+        <div class="class">CLASS OF 2027 · INCOMING SENIOR</div>
+      </div>
+      <div class="lead-card">
+        <div class="role-tag">Treasurer</div>
+        <h3>Zia Momin</h3>
+        <div class="school">Guelph CVI</div>
+        <div class="class">CLASS OF 2027 · INCOMING SENIOR</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section goals-band" id="goals">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="mono">Where We're Headed</span>
+      <h2>What we're building toward next.</h2>
+      <p>These are targets, not results yet — the next milestones we're working toward as a chapter network.</p>
+    </div>
+    <div class="goal-list reveal">
+      <div class="goal-item">
+        <div class="arrow">→ NEXT MILESTONE</div>
+        <div class="target">5,000+</div>
+        <div class="what">STEM kits distributed</div>
+      </div>
+      <div class="goal-item">
+        <div class="arrow">→ NEXT MILESTONE</div>
+        <div class="target">15+</div>
+        <div class="what">Active chapters worldwide</div>
+      </div>
+      <div class="goal-item">
+        <div class="arrow">→ NEXT MILESTONE</div>
+        <div class="target">250+</div>
+        <div class="what">Computers donated</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-bottom:0;">
+  <div class="join-band reveal">
+    <h2 class="display">Start a chapter. Ship a kit. Change a kid's week.</h2>
+    <p>Whether you want to lead a chapter, volunteer, or bring a kit to a center near you — there's a place for you here.</p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="https://forms.gle/bzgha56G6Zr7SrkB9" target="_blank" rel="noopener">Fill Out Membership Form</a>
+      <a class="btn-secondary" href="mailto:stemscholarsociety@gmail.com">Email Us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="nav-logo">
+      <div class="nav-mark">S³</div>
+      STEM Scholar Society
+    </div>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/stemscholarsociety" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.remind.com/join/e63g3b" target="_blank" rel="noopener">Remind</a>
+      <a href="https://classroom.google.com/c/ODM1MTgxMjc4Nzg3?cjc=hcybtuca" target="_blank" rel="noopener">Google Classroom</a>
+      <a href="https://drive.google.com/drive/folders/1EGgjpMMKUjmd-AnBwsd5BjkohNjB8kUt?usp=sharing" target="_blank" rel="noopener">Resource Drive</a>
+      <a href="mailto:stemscholarsociety@gmail.com">Email</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 STEM Scholar Society. A youth-led international nonprofit.</span>
+    <span>Built by students, for students.</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
